@@ -1,4 +1,4 @@
-module github.com/build-workbench/webrtc-call
+module github.com/holtwood-projects/webrtc-call
 
 go 1.22
 
