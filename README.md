@@ -14,7 +14,7 @@
 
 An audio/video calling and real-time interaction client built on the browser's native WebRTC API (1v1 and small-scale Mesh multi-party), paired with a lightweight WebSocket signaling service implemented in Go.
 
-This project and the engineering-grade backend signaling service **[webrtc-signaling](https://github.com/build-workbench/webrtc-signaling)** are sister projects, pairing a front-end calling client with a back-end distributed signaling service.
+This project and the engineering-grade backend signaling service **[webrtc-signaling](https://github.com/holtwood-projects/webrtc-signaling)** are sister projects, pairing a front-end calling client with a back-end distributed signaling service.
 
 ---
 
@@ -380,7 +380,7 @@ This project is open-sourced under the [MIT License](LICENSE).
 
 基于浏览器原生 WebRTC API（1v1 及小规模 Mesh 多人）实现的音视频通话与实时交互客户端，配套用 Go 实现的轻量级 WebSocket 信令服务。
 
-本项目与后端工程化信令服务 **[webrtc-signaling](https://github.com/build-workbench/webrtc-signaling)** 互为姊妹项目，形成「**前端通话客户端 ↔ 后端分布式信令服务**」的对照。
+本项目与后端工程化信令服务 **[webrtc-signaling](https://github.com/holtwood-projects/webrtc-signaling)** 互为姊妹项目，形成「**前端通话客户端 ↔ 后端分布式信令服务**」的对照。
 
 ---
 
