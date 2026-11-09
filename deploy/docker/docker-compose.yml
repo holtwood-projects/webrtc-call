@@ -9,4 +9,7 @@ services:
       # 浏览器来源白名单。公网部署务必改成你的实际 origin（逗号分隔），
       # "*" 仅建议用于本地/内网体验
       - WS_ALLOWED_ORIGINS=${WS_ALLOWED_ORIGINS:-*}
+      # 与 webrtc-signaling 共享的 JWT 密钥。设置后客户端必须携带
+      # signaling 签发的 join-token（?token=）才能连接；留空则跳过校验。
+      - SIGNAL_JWT_SECRET=${SIGNAL_JWT_SECRET:-}
     restart: unless-stopped

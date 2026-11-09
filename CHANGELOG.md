@@ -3,6 +3,8 @@
 ## Unreleased
 
 - 安全：WebSocket 信令支持共享 JWT 校验。配置 `SIGNAL_JWT_SECRET`（与 webrtc-signaling 同值）后，连接必须携带 signaling 签发的 join-token（`?token=`），且只能加入 token 绑定的房间；未配置则保持本地开发模式。
+- 修复 Docker 部署时 `SIGNAL_JWT_SECRET` 未透传到容器、导致 README 宣传的鉴权被静默跳过的问题（`deploy/docker/docker-compose.yml`）。
+- 文档与代码对齐：README 配置示例补充 `SIGNAL_JWT_SECRET`，删除"无任何鉴权"的过时声明；AGENTS.md 的环境变量清单同步为三个。
 - 客户端 ID 改用 `crypto.randomUUID()` 安全随机生成（原 `Math.random()` 可预测）
 
 ## 2.2.0 (2026-08-31)

@@ -270,14 +270,16 @@ docker run --rm -d -p 8080:8080 --name webrtc-call webrtc-call
 
 ### 3. Self-Hosting on a Server
 
-One container serves the web client, signaling, and health probe; media never touches the server (P2P Mesh). Two things matter on a public server:
+One container serves the web client, signaling, and health probe; media never touches the server (P2P Mesh). Three things matter on a public server:
 
 - **HTTPS is mandatory for `getUserMedia`**: browsers only grant camera/microphone access on `https://` (or `localhost`). Terminate TLS in front of the container.
 - **Restrict the Origin whitelist**: set `WS_ALLOWED_ORIGINS` to your real origin instead of the default `*`:
 - **Require a join-token on a public server**: set `SIGNAL_JWT_SECRET` (same value as webrtc-signaling's `SIGNAL_JWT_SECRET`) so only callers holding a signaling-issued token can join. Clients pass the token as `?token=` in the page URL:
 
 ```bash
-WS_ALLOWED_ORIGINS=https://call.example.com ADDR_PORT=8080 \
+WS_ALLOWED_ORIGINS=https://call.example.com \
+SIGNAL_JWT_SECRET="$SIGNAL_JWT_SECRET" \
+ADDR_PORT=8080 \
   docker compose -f deploy/docker/docker-compose.yml up -d --build
 ```
 
@@ -312,7 +314,7 @@ server {
 }
 ```
 
-Honest boundaries, restated for operators: there is **no TURN relay**, so callers behind strict/symmetric NAT may fail to connect (the FAQ below explains how to add coturn); there is **no user system or token auth** — anyone with the URL can join a room, so keep the deployment private or add auth at the proxy layer; the Mesh topology is designed for **2~4 participants per room**, not large meetings.
+Honest boundaries, restated for operators: there is **no TURN relay**, so callers behind strict/symmetric NAT may fail to connect (the FAQ below explains how to add coturn); there is **no built-in user system** — auth is optional: set `SIGNAL_JWT_SECRET` to require a signaling-issued join-token, otherwise anyone with the URL can join a room, so keep the deployment private or add auth at the proxy layer; the Mesh topology is designed for **2~4 participants per room**, not large meetings.
 
 ---
 
@@ -641,7 +643,9 @@ docker run --rm -d -p 8080:8080 --name webrtc-call webrtc-call
 - **收紧 Origin 白名单**：把 `WS_ALLOWED_ORIGINS` 从默认的 `*` 改为你的真实来源：
 
 ```bash
-WS_ALLOWED_ORIGINS=https://call.example.com ADDR_PORT=8080 \
+WS_ALLOWED_ORIGINS=https://call.example.com \
+SIGNAL_JWT_SECRET="$SIGNAL_JWT_SECRET" \
+ADDR_PORT=8080 \
   docker compose -f deploy/docker/docker-compose.yml up -d --build
 ```
 

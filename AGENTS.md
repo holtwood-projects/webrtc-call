@@ -37,7 +37,7 @@ make clean   # 清理 coverage.out / coverage.html
 - Go >= 1.22（go.mod），第三方依赖仅 `gorilla/websocket`；CI 无 golangci-lint，质量门禁为 build + test(-race) + vet。
 - 后端代码注释统一使用中文。
 - 信令协议（WebSocket `/ws`，JSON，`type` 分发）在 README「信令协议规范」有完整定义；修改 `message.go`/`errors.go` 的消息类型或错误码时必须同步 README。
-- 服务配置仅两个环境变量：`ADDR`（默认 `:8080`）、`WS_ALLOWED_ORIGINS`（Origin 白名单，逗号分隔，`*` 放行全部）。
+- 服务配置仅三个环境变量：`ADDR`（默认 `:8080`）、`WS_ALLOWED_ORIGINS`（Origin 白名单，逗号分隔，`*` 放行全部）、`SIGNAL_JWT_SECRET`（与 webrtc-signaling 共享的 JWT 密钥；设置后强制 join-token，留空则跳过校验）。
 - Full Mesh P2P 拓扑，媒体不经服务器转发，单房间建议 2~4 人；不要往服务端加媒体转发能力。
 - 姊妹项目 **webrtc-signaling**（github.com/holtwood-projects/webrtc-signaling）是后端工程化分布式信令服务，本项目定位为「前端通话客户端 + 极简信令」，二者形成对照；定位为学习实验性质，非生产级方案。
 
